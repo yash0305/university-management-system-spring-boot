@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "professor")
 public class Professor {
@@ -18,9 +20,11 @@ public class Professor {
     private Date date_of_joining;
     private Double salary;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "professors")
     private List<Course> courses;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "professors")
     private List<Batch> batches;
 

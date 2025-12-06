@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
 @RestController
+@RequestMapping("/admin")
 public class AdminLogin {
 
     @Autowired
@@ -24,12 +26,12 @@ public class AdminLogin {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/admin")
+    @GetMapping
     public List<YashLogin> getAllAdmin() {
         return userRepository.findAllAdmin();
     }
     
-    @PostMapping("/admin")
+    @PostMapping
     public String registerUser(@RequestBody YashLogin entity) {
         
         userService.registerUser(entity.getUsername(), entity.getPassword());

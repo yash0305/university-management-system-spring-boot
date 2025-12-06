@@ -3,6 +3,8 @@ package com.yash.university_management_system.entity;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "course")
 public class Course {
@@ -24,9 +26,11 @@ public class Course {
     )
     private List<Professor> professors;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "courses")
     private List<Student> students;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "course")
     private List<Batch> batches;
 

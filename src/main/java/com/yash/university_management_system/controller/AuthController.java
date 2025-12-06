@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yash.university_management_system.dto.LoginRequest;
+import com.yash.university_management_system.dto.LoginResponse;
 import com.yash.university_management_system.entity.YashLogin;
 import com.yash.university_management_system.repository.UserRepository;
 import com.yash.university_management_system.util.JwtUtil;
@@ -26,18 +27,22 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping("/login")
+   @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest req) {
-
 
         YashLogin user = userRepository.findByUsername(req.getUsername());
 
         if (user != null && passwordEncoder.matches(req.getPassword(), user.getPassword())) {
-        String token = jwtUtil.generateToken(user.getUsername());
 
-        return ResponseEntity.ok(token);
-    }
+            String token = jwtUtil.generateToken(user.getUsername());
 
+            LoginResponse response = new LoginResponse(
+                    user.getUsername(),
+                    token
+            );
+
+            return ResponseEntity.ok(response);
+        }
 
         return ResponseEntity.status(401).body("Invalid credentials");
     }

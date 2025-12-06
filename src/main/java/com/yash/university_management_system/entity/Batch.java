@@ -1,8 +1,12 @@
 package com.yash.university_management_system.entity;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "batch")
@@ -13,7 +17,8 @@ public class Batch {
     private Integer id;
 
     private String batch_name;
-    private Date batch_timing;
+    private LocalDate batch_timing;
+
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -22,6 +27,7 @@ public class Batch {
         ongoing, completed
     }
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
@@ -34,6 +40,7 @@ public class Batch {
     )
     private List<Professor> professors;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "batches")
     private List<Student> students;
 
@@ -53,13 +60,6 @@ public class Batch {
         this.batch_name = batch_name;
     }
 
-    public Date getBatch_timing() {
-        return batch_timing;
-    }
-
-    public void setBatch_timing(Date batch_timing) {
-        this.batch_timing = batch_timing;
-    }
 
     public Status getStatus() {
         return status;
@@ -91,6 +91,14 @@ public class Batch {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public LocalDate getBatch_timing() {
+        return batch_timing;
+    }
+
+    public void setBatch_timing(LocalDate batch_timing) {
+        this.batch_timing = batch_timing;
     }
 
     
