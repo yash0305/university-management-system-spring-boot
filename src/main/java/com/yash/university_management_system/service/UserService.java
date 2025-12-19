@@ -17,13 +17,14 @@ public class UserService {
     private PasswordEncoder passwordEncoder;  // inject encoder
 
    
-    public YashLogin registerUser(String username, String plainPassword) {
+    public YashLogin registerUser(String username, String plainPassword, String role) {
         // hash the password
          String hashedPassword = passwordEncoder.encode(plainPassword);
         // create user entity
         YashLogin user = new YashLogin();
         user.setUsername(username);
         user.setPassword(hashedPassword);
+        user.setRole(role);
 
         // save to DB
         return userRepository.save(user);

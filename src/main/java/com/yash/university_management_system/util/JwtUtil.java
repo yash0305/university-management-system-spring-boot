@@ -4,7 +4,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Component;
+
+import com.yash.university_management_system.entity.YashLogin;
 
 import java.security.Key;
 import java.util.Date;
@@ -19,14 +22,15 @@ public class JwtUtil {
         this.key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
-    public String generateToken(String username) {
-        return Jwts.builder()
-                .setSubject(username)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
-    }
+    public String generateToken(YashLogin user) {
+    return Jwts.builder()
+        .setSubject(user.getUsername())
+        .claim("role", user.getRole())
+        .setIssuedAt(new Date())
+        .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 1000))
+        .signWith(key)
+        .compact();
+}
 
     public String extractUsername(String token) {
         return Jwts.parserBuilder()

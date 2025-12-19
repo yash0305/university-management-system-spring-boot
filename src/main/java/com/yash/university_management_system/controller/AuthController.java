@@ -34,7 +34,7 @@ public class AuthController {
 
         if (user != null && passwordEncoder.matches(req.getPassword(), user.getPassword())) {
 
-            String token = jwtUtil.generateToken(user.getUsername());
+            String token = jwtUtil.generateToken(user);
 
             LoginResponse response = new LoginResponse(
                     user.getUsername(),

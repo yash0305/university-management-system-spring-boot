@@ -34,8 +34,8 @@ public class AdminLogin {
     @PostMapping
     public String registerUser(@RequestBody YashLogin entity) {
         
-        userService.registerUser(entity.getUsername(), entity.getPassword());
-        return "Admin added successfully";
+        userService.registerUser(entity.getUsername(), entity.getPassword(), entity.getRole());
+        return entity.getRole() +" added successfully";
 
     }
     
