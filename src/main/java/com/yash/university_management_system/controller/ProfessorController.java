@@ -28,8 +28,8 @@ public class ProfessorController {
     @Autowired
     private ProffessorRepository professorRepository;
 
-    @Autowired
-    private CourseRepository courseRepository;
+    // @Autowired
+    // private CourseRepository courseRepository;
 
     // ✔ GET professor by ID
     @GetMapping("/{id}")
@@ -65,7 +65,9 @@ public class ProfessorController {
     // ✔ DELETE professor
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProfessor(@PathVariable Integer id) {
-        if (!professorRepository.existsById(id)) return ResponseEntity.badRequest().body("Professor not found");
+        if (!professorRepository.existsById(id)){
+                return ResponseEntity.badRequest().body("Professor not found");
+        } 
         professorRepository.deleteById(id);
         return ResponseEntity.ok("Professor deleted successfully");
     }

@@ -58,7 +58,7 @@ public class CourseController {
         course.setDuration(dto.getDuration());
         course.setCredits(dto.getCredits());
 
-        Course saved = courseRepository.save(course);
+        courseRepository.save(course);
 
         return ResponseEntity.ok("course created successfully");
     }
@@ -77,7 +77,7 @@ public class CourseController {
         course.setDuration(dto.getDuration());
         course.setCredits(dto.getCredits());
 
-        Course updated = courseRepository.save(course);
+        courseRepository.save(course);
 
         return ResponseEntity.ok("course updated successfully");
         
