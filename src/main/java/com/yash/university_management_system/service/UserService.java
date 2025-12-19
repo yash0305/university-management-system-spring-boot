@@ -4,6 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.yash.university_management_system.entity.YashLogin;
+import com.yash.university_management_system.enums.Role;
 import com.yash.university_management_system.repository.UserRepository;
 
 
@@ -17,7 +18,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;  // inject encoder
 
    
-    public YashLogin registerUser(String username, String plainPassword, String role) {
+    public YashLogin registerUser(String username, String plainPassword, Role role) {
         // hash the password
          String hashedPassword = passwordEncoder.encode(plainPassword);
         // create user entity
